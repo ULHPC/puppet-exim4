@@ -73,8 +73,8 @@ inherits exim4::params
     if ! ($configtype in [ 'none', 'local', 'smarthost', 'satellite', 'internet' ]) {
         fail("exim4 'configtype' parameter must be set to 'internet', 'smarthost', 'satellite', 'local', or 'none'")
     }
-    if ($configtype in [ 'satellite', 'internet' ]) {
-        warn("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
+    if ($configtype in [ 'smarthost', 'internet' ]) {
+        warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
     }
 
     case $::operatingsystem {
