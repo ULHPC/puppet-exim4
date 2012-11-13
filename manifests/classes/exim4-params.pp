@@ -103,7 +103,7 @@ class exim4::params {
     }
 
     $utils_packages = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => [ 'exim4-config', 'mailx' ],
+        /(?i-mx:ubuntu|debian)/ => [ 'exim4-config' ],
         default                 => [ 'mailx' ],
     }
 
