@@ -10,8 +10,8 @@
 #
 # == Parameters:
 #
-# $ensure:: *Default*: 'present'. Ensure the presence (or absence) of exim4.
-#
+# $ensure:: *Default*: 'present'. Ensure the presence (or absence) of exim4. 
+# 
 # $configtype:: *Default*: 'local'. The  main configuration type. It can be one
 # of "internet", "smarthost", "satellite", "local" or "none".
 #
@@ -20,13 +20,13 @@
 #
 # $smarthost:: *Default*: 'smtp.uni.lu'.  List of hosts to which all outgoing
 # mail is passed to and that takes care of delivering it.
-# Here are the smtp servers of the main FAI in France:
-# * Orange           smtp.orange.fr
+# Here are the smtp servers of the main FAI in France: 
+# * Orange           smtp.orange.fr 
 # * Free             smtp.free.fr
 # * Club internet    mail.club-internet.fr
-# * 9Telecom         smtp.neuf.fr
-# * Alice            smtp.alice.fr or smtp.aliceadsl.fr
-# * Cegetel          smtp.cegetel.net
+# * 9Telecom         smtp.neuf.fr 
+# * Alice            smtp.alice.fr or smtp.aliceadsl.fr 
+# * Cegetel          smtp.cegetel.net 
 # * Noos (Numericable) mail.noos.fr
 #
 # == Actions:
@@ -130,12 +130,12 @@ class exim4::common {
 #
 # Specialization class for Debian systems
 class exim4::debian inherits exim4::common {
-
+    
     package { $exim4::params::utils_packages:
         ensure  => "${exim4::ensure}",
         require => Package['exim4']
     }
-
+    
     file { '/etc/mailname':
         mode    => "${exim4::params::configfile_mode}",
         owner   => "${exim4::params::configfile_owner}",
@@ -148,21 +148,14 @@ class exim4::debian inherits exim4::common {
     File["${exim4::params::configfile}"] {
         content => template("exim4/update-exim4.conf.conf.erb")
     }
-
+    
 }
 
 # ------------------------------------------------------------------------------
 # = Class: exim4::redhat
 #
 # Specialization class for Redhat systems
-class exim4::redhat inherits exim4::common {
-
-    package { $exim4::params::utils_packages:
-        ensure  => "${exim4::ensure}",
-        require => Package['exim4']
-    }
-
-}
+class exim4::redhat inherits exim4::common { }
 
 
 

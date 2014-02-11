@@ -62,7 +62,7 @@ class exim4::params {
         ''      => 'mail_spool',
         default => 'maildir_home'
     }
-
+    
     # cf update-exim4.conf(8): List of hosts to which all outgoing mail is
     # passed to and that takes care of delivering it. Each of the hosts is
     # tried, in the order specified (See exim specification, chapter 20.5).
@@ -104,10 +104,10 @@ class exim4::params {
 
     $utils_packages = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/ => [ 'exim4-config' ],
-        default                 => [ 'mailx' ],
+        default                 => [],
     }
 
-
+    
     $servicename = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/ => 'exim4',
         default                 => 'exim'
