@@ -122,6 +122,13 @@ class exim4::common {
         require => Package['exim4'],
     }
 
+    # Create a ["blackhole" alias]{http://www.exim.org/exim-html-3.20/doc/html/spec_23.html#SEC634}
+    mailalias { "blackhole":
+        ensure    => "${exim4::ensure}",
+        recipient => ":blackhole:",
+        require   => Package['exim4'],
+    }
+
 }
 
 
