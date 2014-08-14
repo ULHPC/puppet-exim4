@@ -20,9 +20,9 @@
 #
 # This is a Debian specific file
 dc_eximconfig_configtype='<%= scope.lookupvar('exim4::configtype') %>'
-dc_other_hostnames='<%= fqdn %>'
+dc_other_hostnames='<%= @fqdn %>'
 dc_local_interfaces='<%= scope.lookupvar('exim4::local_interfaces').join(' ; ') %>'
-dc_readhost='<%= fqdn %>'
+dc_readhost='<%= @fqdn %>'
 dc_relay_domains=''
 dc_minimaldns='false'
 dc_relay_nets=''
