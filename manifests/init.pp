@@ -59,7 +59,7 @@
 #
 class exim4(
     $ensure        = $exim4::params::ensure,
-    $configtype    = $exim4::params::configfile,
+    $configtype    = $exim4::params::configtype,
     $localdelivery = $exim4::params::localdelivery,
     $smarthost     = $exim4::params::smarthost
     )
