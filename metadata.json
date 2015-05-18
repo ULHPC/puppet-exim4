@@ -26,5 +26,20 @@
       ]
     }
   ],
-  "tags": ["exim", "exim4", "mail", "mta"]
+  "tags": [
+    "exim",
+    "exim4",
+    "mail",
+    "mta"
+  ],
+  "classes": [
+    "exim4",
+    "exim4::common",
+    "exim4::debian",
+    "exim4::params",
+    "exim4::redhat"
+  ],
+  "definitions": [
+
+  ]
 }
