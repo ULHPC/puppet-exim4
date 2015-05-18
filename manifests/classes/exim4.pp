@@ -81,7 +81,7 @@ inherits exim4::params
         debian, ubuntu:         { include exim4::debian }
         redhat, fedora, centos: { include exim4::redhat }
         default: {
-            fail("Module $module_name is not supported on $operatingsystem")
+            fail("Module ${module_name} is not supported on ${::operatingsystem}")
         }
     }
 }
@@ -98,34 +98,34 @@ class exim4::common {
     require exim4::params
 
     package { 'exim4':
-        name    => "${exim4::params::packagename}",
-        ensure  => "${exim4::ensure}",
+        ensure => $exim4::ensure,
+        name   => $exim4::params::packagename,
     }
 
     service { 'exim4':
-        name       => "${exim4::params::servicename}",
-        enable     => true,
         ensure     => running,
-        hasrestart => "${exim4::params::hasrestart}",
-        pattern    => "${exim4::params::processname}",
-        hasstatus  => "${exim4::params::hasstatus}",
+        name       => $exim4::params::servicename,
+        enable     => true,
+        hasrestart => $exim4::params::hasrestart,
+        pattern    => $exim4::params::processname,
+        hasstatus  => $exim4::params::hasstatus,
         require    => Package['exim4'],
-        subscribe  => File["${exim4::params::configfile}"],
+        subscribe  => File[$exim4::params::configfile],
     }
 
-    file { "${exim4::params::configfile}":
-        owner   => "${exim4::params::configfile_owner}",
-        group   => "${exim4::params::configfile_group}",
-        mode    => "${exim4::params::configfile_mode}",
-        ensure  => "${exim4::ensure}",
+    file { $exim4::params::configfile:
+        ensure  => $exim4::ensure,
+        owner   => $exim4::params::configfile_owner,
+        group   => $exim4::params::configfile_group,
+        mode    => $exim4::params::configfile_mode,
         notify  => Service['exim4'],
         require => Package['exim4'],
     }
 
     # Create a ["blackhole" alias]{http://www.exim.org/exim-html-3.20/doc/html/spec_23.html#SEC634}
-    mailalias { "blackhole":
-        ensure    => "${exim4::ensure}",
-        recipient => ":blackhole:",
+    mailalias { 'blackhole':
+        ensure    => $exim4::ensure,
+        recipient => ':blackhole:',
         require   => Package['exim4'],
     }
 
@@ -139,21 +139,21 @@ class exim4::common {
 class exim4::debian inherits exim4::common {
 
     package { $exim4::params::utils_packages:
-        ensure  => "${exim4::ensure}",
+        ensure  => $exim4::ensure,
         require => Package['exim4']
     }
 
     file { '/etc/mailname':
-        mode    => "${exim4::params::configfile_mode}",
-        owner   => "${exim4::params::configfile_owner}",
-        group   => "${exim4::params::configfile_group}",
-        require => Package['exim4'],
         ensure  => present,
-        content => "$fqdn\n",
+        mode    => $exim4::params::configfile_mode,
+        owner   => $exim4::params::configfile_owner,
+        group   => $exim4::params::configfile_group,
+        require => Package['exim4'],
+        content => "${::fqdn}\n",
     }
 
-    File["${exim4::params::configfile}"] {
-        content => template("exim4/update-exim4.conf.conf.erb")
+    File[$exim4::params::configfile] {
+        content => template('exim4/update-exim4.conf.conf.erb')
     }
 
 }
@@ -165,7 +165,7 @@ class exim4::debian inherits exim4::common {
 class exim4::redhat inherits exim4::common {
 
     package { $exim4::params::utils_packages:
-        ensure  => "${exim4::ensure}",
+        ensure  => $exim4::ensure,
         require => Package['exim4']
     }
 
