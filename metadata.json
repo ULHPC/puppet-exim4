@@ -1,6 +1,6 @@
 {
   "name": "ulhpc-exim4",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "ULHPC Management Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage exim4",
