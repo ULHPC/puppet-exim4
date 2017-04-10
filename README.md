@@ -21,8 +21,11 @@ Configure and manage exim4.
 This module implements the following elements: 
 
 * __Puppet classes__:
-
-* __Puppet definitions__: 
+	- `exim4`: main class
+	- `exim4::common`
+	- `exim4::debian`: specific implementation under Debian 
+	- `exim4::redhat`: specific implementation under Redhat-like system 
+    - `exim4::params`: class parameters
 
 All these components are configured through a set of variables you will find in
 [`manifests/params.pp`](manifests/params.pp). 
