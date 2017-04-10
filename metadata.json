@@ -1,6 +1,6 @@
 {
-  "name": "ulhpc-exim4",
-  "version": "0.1.3",
+  "name": "ULHPC-exim4",
+  "version": "0.1.4",
   "author": "ULHPC Management Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage exim4",
@@ -10,7 +10,7 @@
   "docs_project": "ulhpc-puppet-exim4",
   "project_page": "https://github.com/ULHPC/puppet-exim4",
   "issues_url": "https://github.com/ULHPC/puppet-exim4/issues",
-  "forge_url": "https://forge.puppetlabs.com/ulhpc/exim4",
+  "forge_url": "https://forge.puppetlabs.com/ULHPC/exim4",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
