@@ -115,6 +115,11 @@ class exim4::params {
         default                 => '/etc/exim/exim.conf',
     }
 
+    $local_configfile = $::operatingsystem ? {
+        /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.local.conf',
+        default                 => '/etc/exim/exim.conf.local',
+    }
+
     $configfile_mode = $::operatingsystem ? {
         default => '0644',
     }
