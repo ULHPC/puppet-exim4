@@ -13,8 +13,13 @@ class exim4::redhat inherits exim4::common {
         ensure  => $exim4::ensure,
         require => Package['exim4']
     }
+    File[$exim4::params::configfile] {
+        content => template('exim4/exim.conf.erb')
+    }
+
+    if ($exim4::ensure == 'present') {
+      package { [ 'postfix', 'ssmtp' ] :
+        ensure => 'absent'
+    }
 
 }
-
-
-
