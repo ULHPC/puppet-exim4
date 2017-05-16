@@ -30,38 +30,24 @@ class exim4::params {
     ###########################################
 
     # ensure the presence (or absence) of exim4
-    $ensure = $::exim4_ensure ? {
-        ''      => 'present',
-        default => $::exim4_ensure
-    }
+    $ensure = 'present'
 
     # The Protocol used. Used by monitor and firewall class. Default is 'tcp'
-    $protocol = $::exim4_protocol ? {
-        ''      => 'tcp',
-        default => $::exim4_protocol,
-    }
+    $protocol = 'tcp'
+
     # The port number. Used by monitor and firewall class. The default is 22.
-    $port = $::exim4_port ? {
-        ''      => 25,
-        default => $::exim4_port,
-    }
+    $port = 25
 
     # cf update-exim4.conf(8): The  main configuration type. One of "internet",
     # "smarthost", "satellite", "local"  or "none".
     # Sets macro DC_eximconfig_configtype.
-    $configtype = $::exim4_configtype ? {
-        ''      => 'local',
-        default => $::exim4_configtype
-    }
+    $configtype = 'local'
 
     # cf update-exim4.conf(8): name of the default transport for local mail
     # delivery. Defaults to mail_spool if unset, use maildir_home for delivery
     # to ~/Maildir/.
     # Sets macro LOCAL_DELIVERY.
-    $localdelivery = $::exim4_localdelivery ? {
-        ''      => 'mail_spool',
-        default => 'maildir_home'
-    }
+    $localdelivery = 'mail_spool'
 
     # cf update-exim4.conf(8): List of hosts to which all outgoing mail is
     # passed to and that takes care of delivering it. Each of the hosts is
@@ -80,19 +66,13 @@ class exim4::params {
     # .      2001::0db8::f::4::::2 deliver to IPv6 host, tcp/25
     # .      [2001::0db8::f::4::::2]::587 deliver to IPv6 host, tcp/587
     # This is used as value of the DCsmarthost macro.
-    $smarthost = $::exim4_smarthost ? {
-        ''      => 'smtp.uni.lu',
-        default => $::exim4_smarthost
-    }
+    $smarthost = 'smtp.domain.com'
 
     # cf update-exim4.conf(8): List of IP addresses the Exim daemon should
     # listen on.  If  this  is  left  empty,  Exim  listens  on  all
     # interfaces.
     # Sets macro MAIN_LOCAL_INTERFACES only if there is a non-empty value.
-    $local_interfaces = $::exim4_local_interfaces ? {
-        ''      => [ '127.0.0.1', '::1' ] ,
-        default => $::exim4_local_interfaces
-    }
+    $local_interfaces = [ '127.0.0.1', '::1' ]
 
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
@@ -170,4 +150,3 @@ class exim4::params {
 
 
 }
-
