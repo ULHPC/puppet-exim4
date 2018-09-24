@@ -11,7 +11,7 @@ class exim4::debian inherits exim4::common {
 
     package { $exim4::params::utils_packages:
         ensure  => $exim4::ensure,
-        require => Package['exim4']
+        require => Package['exim4'],
     }
 
     file { '/etc/mailname':
@@ -28,4 +28,3 @@ class exim4::debian inherits exim4::common {
     }
 
 }
-

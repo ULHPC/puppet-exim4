@@ -695,6 +695,7 @@ begin routers
 # If the DNS lookup fails, no further routers are tried because of the no_more
 # setting, and consequently the address is unrouteable.
 
+<% if scope.lookupvar('exim4::nodnslookup') == false  -%>
 dnslookup:
   driver = dnslookup
   domains = ! +local_domains
@@ -704,6 +705,7 @@ dnslookup:
 # ignore_target_hosts = <; 0.0.0.0 ; 127.0.0.0/8 ; ::1
   no_more
 
+<% end -%>
 
 # This alternative router can be used when you want to send all mail to a
 # server which handles DNS lookups for you; an ISP will typically run such

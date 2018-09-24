@@ -13,7 +13,7 @@
 #
 #
 
-include 'exim4::params'
+include '::exim4::params'
 
 $names = ['ensure', 'protocol', 'port', 'configtype', 'localdelivery', 'smarthost', 'local_interfaces', 'packagename', 'utils_packages', 'servicename', 'processname', 'hasstatus', 'hasrestart', 'configfile', 'configfile_mode', 'configfile_owner', 'configfile_group']
 
@@ -23,6 +23,7 @@ notice("exim4::params::port = ${exim4::params::port}")
 notice("exim4::params::configtype = ${exim4::params::configtype}")
 notice("exim4::params::localdelivery = ${exim4::params::localdelivery}")
 notice("exim4::params::smarthost = ${exim4::params::smarthost}")
+notice("exim4::params::nodnslookup = ${exim4::params::nodnslookup}")
 notice("exim4::params::local_interfaces = ${exim4::params::local_interfaces}")
 notice("exim4::params::packagename = ${exim4::params::packagename}")
 notice("exim4::params::utils_packages = ${exim4::params::utils_packages}")
