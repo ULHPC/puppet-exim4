@@ -12,7 +12,7 @@
 class exim4::common {
 
     # Load the variables used in this module. Check the exim4-params.pp file
-    require exim4::params
+    require ::exim4::params
 
     package { 'exim4':
         ensure => $exim4::ensure,
@@ -47,5 +47,3 @@ class exim4::common {
     }
 
 }
-
-

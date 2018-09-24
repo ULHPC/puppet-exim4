@@ -78,12 +78,10 @@ class exim4(
     }
 
     case $::operatingsystem {
-        debian, ubuntu:         { include exim4::debian }
-        redhat, fedora, centos: { include exim4::redhat }
+        'debian', 'ubuntu':         { include ::exim4::debian }
+        'redhat', 'fedora', 'centos': { include ::exim4::redhat }
         default: {
             fail("Module ${module_name} is not supported on ${::operatingsystem}")
         }
     }
 }
-
-

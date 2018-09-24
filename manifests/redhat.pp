@@ -11,7 +11,7 @@ class exim4::redhat inherits exim4::common {
 
     package { $exim4::params::utils_packages:
         ensure  => $exim4::ensure,
-        require => Package['exim4']
+        require => Package['exim4'],
     }
 
     File[$exim4::params::configfile] {
