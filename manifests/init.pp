@@ -61,9 +61,9 @@ class exim4(
     $ensure        = $exim4::params::ensure,
     $configtype    = $exim4::params::configtype,
     $localdelivery = $exim4::params::localdelivery,
-    $smarthost     = $exim4::params::smarthost
-    )
-inherits exim4::params
+    $smarthost     = $exim4::params::smarthost,
+    $nodnslookup   = $exim4::params::nodnslookup,
+    ) inherits exim4::params
 {
     info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
 

@@ -74,6 +74,13 @@ class exim4::params {
     # Sets macro MAIN_LOCAL_INTERFACES only if there is a non-empty value.
     $local_interfaces = [ '127.0.0.1', '::1' ]
 
+    # cf exim4.conf:
+    # This router routes addresses that are not in local domains by doing a DNS
+    # lookup on the domain name. If you want to disable this feature, set nodnslookup
+    # to false will prevents exim from lookup on the domain name.
+    # Defaults: false (to keep backwards compatibility)
+    $nodnslookup = false
+
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
     #######################################
