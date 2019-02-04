@@ -15,6 +15,9 @@
 # $configtype:: *Default*: 'local'. The  main configuration type. It can be one
 # of "internet", "smarthost", "satellite", "local" or "none".
 #
+# $local_interfaces:: *Default*: [ '127.0.0.1', '::1' ].
+# List of IP addresses the Exim daemon should listen on.
+#
 # $localdelivery:: *Default*: 'mail_spool'. name of the default transport for local mail
 # delivery. Use 'maildir_home' for delivery to ~/Maildir/.
 #
@@ -58,12 +61,12 @@
 # [Remember: No empty lines between comments and class definition]
 #
 class exim4(
-  $ensure        = $exim4::params::ensure,
-  $configtype    = $exim4::params::configtype,
-  $localdelivery = $exim4::params::localdelivery,
-  $smarthost     = $exim4::params::smarthost,
-  $nodnslookup   = $exim4::params::nodnslookup,
-
+  $ensure           = $exim4::params::ensure,
+  $configtype       = $exim4::params::configtype,
+  $localdelivery    = $exim4::params::localdelivery,
+  $smarthost        = $exim4::params::smarthost,
+  $nodnslookup      = $exim4::params::nodnslookup,
+  $local_interfaces = $exim4::params::local_interfaces,
 ) inherits exim4::params
   {
     info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
