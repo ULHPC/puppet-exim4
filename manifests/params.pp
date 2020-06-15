@@ -81,6 +81,11 @@ class exim4::params {
     # Defaults: false (to keep backwards compatibility)
     $nodnslookup = false
 
+    # cf exim4.conf
+    # Rewrite rules, following the Exim syntax as documented here
+    # <https://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html>
+    $rewriterules = [ ]
+
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
     #######################################

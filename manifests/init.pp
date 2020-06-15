@@ -32,6 +32,10 @@
 # * Cegetel          smtp.cegetel.net
 # * Noos (Numericable) mail.noos.fr
 #
+# $rewriterules:: *Default*: [ ].
+# List of rewrite rules, following the exim documentation.
+# See: https://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html
+#
 # == Actions:
 #
 # Install and configure exim4
@@ -67,6 +71,7 @@ class exim4(
   $smarthost        = $exim4::params::smarthost,
   $nodnslookup      = $exim4::params::nodnslookup,
   $local_interfaces = $exim4::params::local_interfaces,
+  $rewriterules     = $exim4::params::rewriterules,
 ) inherits exim4::params
   {
     info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
