@@ -17,7 +17,7 @@ group :test do
   gem "puppetlabs_spec_helper"
   gem "metadata-json-lint"
   gem "rspec-puppet-facts"
-  gem 'rubocop', '0.33.0'
+  gem 'rubocop',   '~> 0.51'
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
 
@@ -42,12 +42,7 @@ group :development do
 end
 
 group :system_tests do
-  gem "beaker", '<= 3.28.0'
-  gem "beaker-rspec", '<= 6.2.1'
-  gem "beaker-puppet_install_helper", '<= 0.7.1'
-  gem "beaker-openstack", '<= 0.1.0'
-  gem "fog-openstack", '<= 0.1.22'
-  gem "fog-xenserver", '<= 0.3.0'
-  gem "net-telnet", '<= 0.1.1'
+  gem "beaker"
+  gem "beaker-rspec"
+  gem "beaker-puppet_install_helper"
 end
-

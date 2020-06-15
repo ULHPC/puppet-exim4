@@ -962,7 +962,10 @@ begin retry
 
 begin rewrite
 
+<% scope.lookupvar('exim4::rewriterules').each do |rule| %>
+<%= rule %>
 
+<% end %>
 
 ######################################################################
 #                   AUTHENTICATION CONFIGURATION                     #

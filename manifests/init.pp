@@ -15,6 +15,9 @@
 # $configtype:: *Default*: 'local'. The  main configuration type. It can be one
 # of "internet", "smarthost", "satellite", "local" or "none".
 #
+# $local_interfaces:: *Default*: [ '127.0.0.1', '::1' ].
+# List of IP addresses the Exim daemon should listen on.
+#
 # $localdelivery:: *Default*: 'mail_spool'. name of the default transport for local mail
 # delivery. Use 'maildir_home' for delivery to ~/Maildir/.
 #
@@ -28,6 +31,10 @@
 # * Alice            smtp.alice.fr or smtp.aliceadsl.fr
 # * Cegetel          smtp.cegetel.net
 # * Noos (Numericable) mail.noos.fr
+#
+# $rewriterules:: *Default*: [ ].
+# List of rewrite rules, following the exim documentation.
+# See: https://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html
 #
 # == Actions:
 #
@@ -58,30 +65,32 @@
 # [Remember: No empty lines between comments and class definition]
 #
 class exim4(
-    $ensure        = $exim4::params::ensure,
-    $configtype    = $exim4::params::configtype,
-    $localdelivery = $exim4::params::localdelivery,
-    $smarthost     = $exim4::params::smarthost,
-    $nodnslookup   = $exim4::params::nodnslookup,
-    ) inherits exim4::params
-{
+  $ensure           = $exim4::params::ensure,
+  $configtype       = $exim4::params::configtype,
+  $localdelivery    = $exim4::params::localdelivery,
+  $smarthost        = $exim4::params::smarthost,
+  $nodnslookup      = $exim4::params::nodnslookup,
+  $local_interfaces = $exim4::params::local_interfaces,
+  $rewriterules     = $exim4::params::rewriterules,
+) inherits exim4::params
+  {
     info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
 
     if ! ($ensure in [ 'present', 'absent' ]) {
-        fail("exim4 'ensure' parameter must be set to either 'absent' or 'present'")
+      fail("exim4 'ensure' parameter must be set to either 'absent' or 'present'")
     }
     if ! ($configtype in [ 'none', 'local', 'smarthost', 'satellite', 'internet' ]) {
-        fail("exim4 'configtype' parameter must be set to 'internet', 'smarthost', 'satellite', 'local', or 'none'")
+      fail("exim4 'configtype' parameter must be set to 'internet', 'smarthost', 'satellite', 'local', or 'none'")
     }
     if ($configtype in [ 'smarthost', 'internet' ]) {
-        warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
+      warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
     }
 
     case $::operatingsystem {
-        'debian', 'ubuntu':         { include ::exim4::debian }
-        'redhat', 'fedora', 'centos': { include ::exim4::redhat }
-        default: {
-            fail("Module ${module_name} is not supported on ${::operatingsystem}")
-        }
+      'debian', 'ubuntu':         { include ::exim4::debian }
+      'redhat', 'fedora', 'centos': { include ::exim4::redhat }
+      default: {
+        fail("Module ${module_name} is not supported on ${::operatingsystem}")
+      }
     }
-}
+  }

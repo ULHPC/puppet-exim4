@@ -22,7 +22,7 @@ The directory hosting the implementation of this puppet module is organized as f
 │   └── params.pp       # Class parameters
 ├── metadata.json       # Puppet module configuration file -- See http://tinyurl.com/puppet-metadata-json
 ├── mkdocs.yml          # [Read the Docs](readthedocs.org) configuration 
-├── pkg/                # Hold build packages to be published on the [Puppet forge](https://forge.puppetlabs.com/ulhpc/exim4)
+├── pkg/                # Hold build packages to be published on the [Puppet forge](https://forge.puppetlabs.com/ULHPC/exim4)
 ├── spec/               # (eventually) [Rspec](https://www.relishapp.com/rspec/) tests
 ├── templates/          # (eventually) Module ERB template files
 └── tests/              # Tests cases for the module usage
