@@ -112,8 +112,8 @@ class exim4::params {
     }
 
     $hasstatus = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/        => false,
-        /(?i-mx:centos|fedora|redhat)/ => true,
+        /(?i-mx:ubuntu|debian)/              => false,
+        /(?i-mx:centos|fedora|redhat|rocky)/ => true,
         default => true,
     }
 
