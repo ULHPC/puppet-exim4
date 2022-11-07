@@ -19,7 +19,7 @@ class exim4::redhat inherits exim4::common {
     }
 
     if ($exim4::ensure == 'present') {
-      package { [ 'postfix', 'ssmtp' ] :  ensure => 'absent' }
+      package { [ 'postfix', 'ssmtp', 'esmtp' ] :  ensure => 'absent' }
     }
 
 }
