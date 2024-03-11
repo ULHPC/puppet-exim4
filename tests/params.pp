@@ -13,7 +13,7 @@
 #
 #
 
-include '::exim4::params'
+include 'exim4::params'
 
 $names = ['ensure', 'protocol', 'port', 'configtype', 'localdelivery', 'smarthost', 'local_interfaces', 'packagename', 'utils_packages', 'servicename', 'processname', 'hasstatus', 'hasrestart', 'configfile', 'configfile_mode', 'configfile_owner', 'configfile_group']
 
