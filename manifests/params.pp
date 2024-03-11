@@ -95,10 +95,13 @@ class exim4::params {
     }
 
     $utils_packages = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => [ 'exim4-config' ],
-        default                 => [ 'mailx' ],
+        /(?i-mx:ubuntu|debian)/              => [ 'exim4-config' ],
+        /(?i-mx:centos|fedora|redhat|rocky)/ => $::operatingsystemmajrelease ? {
+          '7'     => [ 'mailx' ],
+          default => [ 's-nail'],
+        },
+        default                 => [ 'mailx' ]
     }
-
 
     $servicename = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/ => 'exim4',
