@@ -157,7 +157,7 @@ GEM
     oga (3.4)
       ast
       ruby-ll (~> 2.1)
-    open_uri_redirections (0.2.1)
+    parallel (1.24.0)
     parser (2.7.2.0)
       ast (~> 2.4.1)
     pathspec (1.0.0)
@@ -197,7 +197,8 @@ GEM
       rake
     rake (13.1.0)
     require_all (3.0.0)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -256,6 +257,7 @@ GEM
       net-telnet
       sfl
     stringify-hash (0.0.2)
+    strscan (3.1.0)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
