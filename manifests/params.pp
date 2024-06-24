@@ -89,61 +89,61 @@ class exim4::params {
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
     #######################################
-    $packagename = $::operatingsystem ? {
+    $packagename = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'exim4',
         default                 => 'exim',
     }
 
-    $utils_packages = $::operatingsystem ? {
+    $utils_packages = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/              => [ 'exim4-config' ],
-        /(?i-mx:centos|fedora|redhat|rocky)/ => $::operatingsystemmajrelease ? {
+        /(?i-mx:centos|fedora|redhat|rocky)/ => $facts['os']['release']['major'] ? {
           '7'     => [ 'mailx' ],
           default => [ 's-nail'],
         },
         default                 => [ 'mailx' ]
     }
 
-    $servicename = $::operatingsystem ? {
+    $servicename = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'exim4',
         default                 => 'exim'
     }
 
     # used for pattern in a service ressource
-    $processname = $::operatingsystem ? {
+    $processname = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'exim4',
         default                 => 'exim',
     }
 
-    $hasstatus = $::operatingsystem ? {
+    $hasstatus = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/              => false,
         /(?i-mx:centos|fedora|redhat|rocky)/ => true,
         default => true,
     }
 
-    $hasrestart = $::operatingsystem ? {
+    $hasrestart = $facts['os']['name'] ? {
         default => true,
     }
 
     # Configuration file
-    $configfile = $::operatingsystem ? {
+    $configfile = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.conf.conf',
         default                 => '/etc/exim/exim.conf',
     }
 
-    $local_configfile = $::operatingsystem ? {
+    $local_configfile = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.local.conf',
         default                 => '/etc/exim/exim.conf.local',
     }
 
-    $configfile_mode = $::operatingsystem ? {
+    $configfile_mode = $facts['os']['name'] ? {
         default => '0644',
     }
 
-    $configfile_owner = $::operatingsystem ? {
+    $configfile_owner = $facts['os']['name'] ? {
         default => 'root',
     }
 
-    $configfile_group = $::operatingsystem ? {
+    $configfile_group = $facts['os']['name'] ? {
         default => 'root',
     }
 

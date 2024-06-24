@@ -20,7 +20,7 @@ class exim4::debian inherits exim4::common {
         owner   => $exim4::params::configfile_owner,
         group   => $exim4::params::configfile_group,
         require => Package['exim4'],
-        content => "${::fqdn}\n",
+        content => "${facts['networking']['fqdn']}\n",
     }
 
     File[$exim4::params::configfile] {
