@@ -86,11 +86,11 @@ class exim4(
       warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
     }
 
-    case $::operatingsystem {
+    case $facts['os']['name'] {
       'debian', 'ubuntu':                    { include exim4::debian }
       'redhat', 'fedora', 'centos', 'rocky': { include exim4::redhat }
       default: {
-        fail("Module ${module_name} is not supported on ${::operatingsystem}")
+        fail("Module ${module_name} is not supported on ${facts['os']['name']}")
       }
     }
   }
