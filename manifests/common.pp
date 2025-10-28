@@ -30,11 +30,11 @@ class exim4::common {
         subscribe  => File[$exim4::params::configfile],
     }
 
-    file { $logdir:
+    file { $exim4::params::logdir:
         ensure  => directory,
-        mode    => $logdir_mode,
-        owner   => $logdir_owner,
-        group   => $logdir_group,
+        mode    => $exim4::params::logdir_mode,
+        owner   => $exim4::params::logdir_owner,
+        group   => $exim4::params::logdir_group,
         notify  => Service['exim4'],
         require => Package['exim4'],
     }
