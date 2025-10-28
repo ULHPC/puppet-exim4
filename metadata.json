@@ -1,6 +1,6 @@
 {
   "name": "ULHPC-exim4",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "author": "ULHPC Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage exim4",
@@ -43,7 +43,5 @@
     "exim4::params",
     "exim4::redhat"
   ],
-  "definitions": [
-
-  ]
+  "definitions": []
 }
