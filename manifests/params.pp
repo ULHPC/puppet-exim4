@@ -147,26 +147,22 @@ class exim4::params {
         default => 'root',
     }
 
-    # $configdir = $::operatingsystem ? {
-    #     default => "/etc/exim4",
-    # }
-    # $configdir_mode = $::operatingsystem ? {
-    #     default => '0755',
-    # }
+    # Log directory
+    $logdir = $facts['os']['name'] ? {
+        default => '/var/log/exim',
+    }
 
-    # $configdir_owner = $::operatingsystem ? {
-    #     default => 'root',
-    # }
+    $logdir_mode = $facts['os']['name'] ? {
+        default => '0750',
+    }
 
-    # $configdir_group = $::operatingsystem ? {
-    #     default => 'root',
-    # }
+    $logdir_owner = $facts['os']['name'] ? {
+        default => 'exim',
+    }
 
-    # $pkgmanager = $::operatingsystem ? {
-    #     /(?i-mx:ubuntu|debian)/          => [ '/usr/bin/apt-get' ],
-    #     /(?i-mx:centos|fedora|redhat)/ => [ '/bin/rpm', '/usr/bin/up2date', '/usr/bin/yum' ],
-    #     default => []
-    # }
+    $logdir_group = $facts['os']['name'] ? {
+        default => 'exim',
+    }
 
 
 }
