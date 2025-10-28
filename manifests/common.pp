@@ -31,10 +31,10 @@ class exim4::common {
     }
 
     file { $logdir:
-        ensure => directory,
-        mode   => $logdir_mode,
-        owner  => $logdir_owner,
-        group  => $logdir_group,
+        ensure  => directory,
+        mode    => $logdir_mode,
+        owner   => $logdir_owner,
+        group   => $logdir_group,
         notify  => Service['exim4'],
         require => Package['exim4'],
     }
