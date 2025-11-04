@@ -157,11 +157,13 @@ class exim4::params {
     }
 
     $logdir_owner = $facts['os']['name'] ? {
-        default => 'exim',
+        /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
+        default                 => 'exim',
     }
 
     $logdir_group = $facts['os']['name'] ? {
-        default => 'exim',
+        /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
+        default                 => 'exim',
     }
 
 
