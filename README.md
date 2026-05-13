@@ -1,5 +1,3 @@
--*- mode: markdown; mode: visual-line;  -*-
-
 # Exim4 Puppet Module
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/ULHPC/exim4.svg)](https://forge.puppetlabs.com/ULHPC/exim4)
@@ -8,7 +6,7 @@
 
 Configure and manage exim4
 
-      Copyright (c) 2020 ULHPC Team <hpc-sysadmins@uni.lu>
+      Copyright (c) 2026 ULHPC Team <hpc-sysadmins@uni.lu>
 
 
 | [Project Page](https://github.com/ULHPC/puppet-exim4) | [Sources](https://github.com/ULHPC/puppet-exim4) | [Issues](https://github.com/ULHPC/puppet-exim4/issues) |
@@ -24,15 +22,12 @@ This module implements the following elements:
 	- `exim4::common`
 	- `exim4::debian`: specific implementation under Debian
 	- `exim4::redhat`: specific implementation under Redhat-like system
-    - `exim4::params`: class parameters
+  - `exim4::params`: class parameters
 
 * __Puppet definitions__:
 
 All these components are configured through a set of variables you will find in
 [`manifests/params.pp`](manifests/params.pp).
-
-_Note_: the various operations that can be conducted from this repository are piloted from a [`Rakefile`](https://github.com/ruby/rake) and assumes you have a running [Ruby](https://www.ruby-lang.org/en/) installation.
-See `docs/contributing.md` for more details on the steps you shall follow to have this `Rakefile` working properly.
 
 ## Dependencies
 
@@ -53,47 +48,27 @@ Use it as follows:
 
      include ' exim4'
 
-See also [`tests/init.pp`](tests/init.pp)
-
-### Class `exim4::debian`
-
-See [`tests/debian.pp`](tests/debian.pp)
-### Class `exim4::redhat`
-
-See [`tests/redhat.pp`](tests/redhat.pp)
-
-
 ## Librarian-Puppet / R10K Setup
 
 You can of course configure the exim4 module in your `Puppetfile` to make it available with [Librarian puppet](http://librarian-puppet.com/) or
 [r10k](https://github.com/adrienthebo/r10k) by adding the following entry:
 
      # Modules from the Puppet Forge
-     mod "ULHPC-exim4"
+     mod "ULHPC/exim4"
 
 or, if you prefer to work on the git version:
 
-     mod "ulhpc-exim4",
+     mod "ulhpc/exim4",
          :git => 'https://github.com/ULHPC/puppet-exim4',
-         :ref => 'production'
+         :ref => 'main'
 
-## Issues / Feature request
+## Developments / Issues / Contributing to the code
 
-You can submit bug / issues / feature request using the [ulhpc-exim4 Puppet Module Tracker](https://github.com/ULHPC/puppet-exim4/issues).
+This Puppet Module has been implemented in the context of the [UL HPC](http://hpc.uni.lu) Platform of the [University of Luxembourg](http://www.uni.lu).
+It relies on [Vox Pupuli modulesync](https://github.com/voxpupuli/modulesync) for its organization.
 
-## Developments / Contributing to the code
-
-If you want to contribute to the code, you shall be aware of the way this module is organized.
-These elements are detailed on [`docs/contributing.md`](contributing/index.md).
-
+You can submit bugs / issues / feature requests using the [ulhpc-exim4 Puppet Module Tracker](https://github.com/ULHPC/puppet-exim4/issues).
 You are more than welcome to contribute to its development by [sending a pull request](https://help.github.com/articles/using-pull-requests).
-
-## Puppet modules tests within a Vagrant box
-
-The best way to test this module in a non-intrusive way is to rely on [Vagrant](http://www.vagrantup.com/).
-The `Vagrantfile` at the root of the repository pilot the provisioning various vagrant boxes available on [Vagrant cloud](https://atlas.hashicorp.com/boxes/search?utf8=%E2%9C%93&sort=&provider=virtualbox&q=svarrette) you can use to test this module.
-
-See [`docs/vagrant.md`](vagrant.md) for more details.
 
 ## Licence
 
