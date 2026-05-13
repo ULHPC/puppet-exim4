@@ -23,148 +23,144 @@
 # [Remember: No empty lines between comments and class definition]
 #
 class exim4::params {
+  ######## DEFAULTS FOR VARIABLES USERS CAN SET ##########################
+  # (Here are set the defaults, provide your custom variables externally)
+  # (The default used is in the line with '')
+  ###########################################
 
-    ######## DEFAULTS FOR VARIABLES USERS CAN SET ##########################
-    # (Here are set the defaults, provide your custom variables externally)
-    # (The default used is in the line with '')
-    ###########################################
+  # ensure the presence (or absence) of exim4
+  $ensure = 'present'
 
-    # ensure the presence (or absence) of exim4
-    $ensure = 'present'
+  # The Protocol used. Used by monitor and firewall class. Default is 'tcp'
+  $protocol = 'tcp'
 
-    # The Protocol used. Used by monitor and firewall class. Default is 'tcp'
-    $protocol = 'tcp'
+  # The port number. Used by monitor and firewall class. The default is 22.
+  $port = 25
 
-    # The port number. Used by monitor and firewall class. The default is 22.
-    $port = 25
+  # cf update-exim4.conf(8): The  main configuration type. One of "internet",
+  # "smarthost", "satellite", "local"  or "none".
+  # Sets macro DC_eximconfig_configtype.
+  $configtype = 'local'
 
-    # cf update-exim4.conf(8): The  main configuration type. One of "internet",
-    # "smarthost", "satellite", "local"  or "none".
-    # Sets macro DC_eximconfig_configtype.
-    $configtype = 'local'
+  # cf update-exim4.conf(8): name of the default transport for local mail
+  # delivery. Defaults to mail_spool if unset, use maildir_home for delivery
+  # to ~/Maildir/.
+  # Sets macro LOCAL_DELIVERY.
+  $localdelivery = 'mail_spool'
 
-    # cf update-exim4.conf(8): name of the default transport for local mail
-    # delivery. Defaults to mail_spool if unset, use maildir_home for delivery
-    # to ~/Maildir/.
-    # Sets macro LOCAL_DELIVERY.
-    $localdelivery = 'mail_spool'
+  # cf update-exim4.conf(8): List of hosts to which all outgoing mail is
+  # passed to and that takes care of delivering it. Each of the hosts is
+  # tried, in the order specified (See exim specification, chapter 20.5).
+  # All deliveries go out to TCP port 25 unless a different port  is
+  # specified after the host name, separated from the host name by two colons.
+  # Colons in IPv6 addresses need to be doubled.
+  # If a port number follows, IP addresses may be enclosed in brackets, which
+  # might be the only possibility to specify delivery to an IPv6 address  and
+  # a  different port. Examples:
+  # .      host.domain.example deliver to host looked up on DNS, tcp/25
+  # .      host.domain.example::587 deliver to host looked up on DNS, tcp/587
+  # .      192.168.2.4 deliver to IPv4 host, tcp/25
+  # .      192.168.2.4::587 deliver to IPv4 host, tcp/587
+  # .      [192.168.2.4]::587 deliver to IPv4 host, tcp/587
+  # .      2001::0db8::f::4::::2 deliver to IPv6 host, tcp/25
+  # .      [2001::0db8::f::4::::2]::587 deliver to IPv6 host, tcp/587
+  # This is used as value of the DCsmarthost macro.
+  $smarthost = 'smtp.domain.com'
 
-    # cf update-exim4.conf(8): List of hosts to which all outgoing mail is
-    # passed to and that takes care of delivering it. Each of the hosts is
-    # tried, in the order specified (See exim specification, chapter 20.5).
-    # All deliveries go out to TCP port 25 unless a different port  is
-    # specified after the host name, separated from the host name by two colons.
-    # Colons in IPv6 addresses need to be doubled.
-    # If a port number follows, IP addresses may be enclosed in brackets, which
-    # might be the only possibility to specify delivery to an IPv6 address  and
-    # a  different port. Examples:
-    # .      host.domain.example deliver to host looked up on DNS, tcp/25
-    # .      host.domain.example::587 deliver to host looked up on DNS, tcp/587
-    # .      192.168.2.4 deliver to IPv4 host, tcp/25
-    # .      192.168.2.4::587 deliver to IPv4 host, tcp/587
-    # .      [192.168.2.4]::587 deliver to IPv4 host, tcp/587
-    # .      2001::0db8::f::4::::2 deliver to IPv6 host, tcp/25
-    # .      [2001::0db8::f::4::::2]::587 deliver to IPv6 host, tcp/587
-    # This is used as value of the DCsmarthost macro.
-    $smarthost = 'smtp.domain.com'
+  # cf update-exim4.conf(8): List of IP addresses the Exim daemon should
+  # listen on.  If  this  is  left  empty,  Exim  listens  on  all
+  # interfaces.
+  # Sets macro MAIN_LOCAL_INTERFACES only if there is a non-empty value.
+  $local_interfaces = ['127.0.0.1', '::1']
 
-    # cf update-exim4.conf(8): List of IP addresses the Exim daemon should
-    # listen on.  If  this  is  left  empty,  Exim  listens  on  all
-    # interfaces.
-    # Sets macro MAIN_LOCAL_INTERFACES only if there is a non-empty value.
-    $local_interfaces = [ '127.0.0.1', '::1' ]
+  # cf exim4.conf:
+  # This router routes addresses that are not in local domains by doing a DNS
+  # lookup on the domain name. If you want to disable this feature, set nodnslookup
+  # to false will prevents exim from lookup on the domain name.
+  # Defaults: false (to keep backwards compatibility)
+  $nodnslookup = false
 
-    # cf exim4.conf:
-    # This router routes addresses that are not in local domains by doing a DNS
-    # lookup on the domain name. If you want to disable this feature, set nodnslookup
-    # to false will prevents exim from lookup on the domain name.
-    # Defaults: false (to keep backwards compatibility)
-    $nodnslookup = false
+  # cf exim4.conf
+  # Rewrite rules, following the Exim syntax as documented here
+  # <https://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html>
+  $rewriterules = []
 
-    # cf exim4.conf
-    # Rewrite rules, following the Exim syntax as documented here
-    # <https://www.exim.org/exim-html-current/doc/html/spec_html/ch-address_rewriting.html>
-    $rewriterules = [ ]
+  #### MODULE INTERNAL VARIABLES  #########
+  # (Modify to adapt to unsupported OSes)
+  #######################################
+  $packagename = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => 'exim4',
+    default                 => 'exim',
+  }
 
-    #### MODULE INTERNAL VARIABLES  #########
-    # (Modify to adapt to unsupported OSes)
-    #######################################
-    $packagename = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => 'exim4',
-        default                 => 'exim',
-    }
+  $utils_packages = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/              => ['exim4-config'],
+    /(?i-mx:centos|fedora|redhat|rocky)/ => $facts['os']['release']['major'] ? {
+      '7'     => ['mailx'],
+      default => ['s-nail'],
+    },
+    default                 => ['mailx']
+  }
 
-    $utils_packages = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/              => [ 'exim4-config' ],
-        /(?i-mx:centos|fedora|redhat|rocky)/ => $facts['os']['release']['major'] ? {
-          '7'     => [ 'mailx' ],
-          default => [ 's-nail'],
-        },
-        default                 => [ 'mailx' ]
-    }
+  $servicename = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => 'exim4',
+    default                 => 'exim'
+  }
 
-    $servicename = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => 'exim4',
-        default                 => 'exim'
-    }
+  # used for pattern in a service ressource
+  $processname = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => 'exim4',
+    default                 => 'exim',
+  }
 
-    # used for pattern in a service ressource
-    $processname = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => 'exim4',
-        default                 => 'exim',
-    }
+  $hasstatus = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/              => false,
+    /(?i-mx:centos|fedora|redhat|rocky)/ => true,
+    default => true,
+  }
 
-    $hasstatus = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/              => false,
-        /(?i-mx:centos|fedora|redhat|rocky)/ => true,
-        default => true,
-    }
+  $hasrestart = $facts['os']['name'] ? {
+    default => true,
+  }
 
-    $hasrestart = $facts['os']['name'] ? {
-        default => true,
-    }
+  # Configuration file
+  $configfile = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.conf.conf',
+    default                 => '/etc/exim/exim.conf',
+  }
 
-    # Configuration file
-    $configfile = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.conf.conf',
-        default                 => '/etc/exim/exim.conf',
-    }
+  $local_configfile = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.local.conf',
+    default                 => '/etc/exim/exim.conf.local',
+  }
 
-    $local_configfile = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => '/etc/exim4/update-exim4.local.conf',
-        default                 => '/etc/exim/exim.conf.local',
-    }
+  $configfile_mode = $facts['os']['name'] ? {
+    default => '0644',
+  }
 
-    $configfile_mode = $facts['os']['name'] ? {
-        default => '0644',
-    }
+  $configfile_owner = $facts['os']['name'] ? {
+    default => 'root',
+  }
 
-    $configfile_owner = $facts['os']['name'] ? {
-        default => 'root',
-    }
+  $configfile_group = $facts['os']['name'] ? {
+    default => 'root',
+  }
 
-    $configfile_group = $facts['os']['name'] ? {
-        default => 'root',
-    }
+  # Log directory
+  $logdir = $facts['os']['name'] ? {
+    default => '/var/log/exim',
+  }
 
-    # Log directory
-    $logdir = $facts['os']['name'] ? {
-        default => '/var/log/exim',
-    }
+  $logdir_mode = $facts['os']['name'] ? {
+    default => '0750',
+  }
 
-    $logdir_mode = $facts['os']['name'] ? {
-        default => '0750',
-    }
+  $logdir_owner = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
+    default                 => 'exim',
+  }
 
-    $logdir_owner = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
-        default                 => 'exim',
-    }
-
-    $logdir_group = $facts['os']['name'] ? {
-        /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
-        default                 => 'exim',
-    }
-
-
-}
+  $logdir_group = $facts['os']['name'] ? {
+    /(?i-mx:ubuntu|debian)/ => 'Debian-exim',
+    default                 => 'exim',
+} }

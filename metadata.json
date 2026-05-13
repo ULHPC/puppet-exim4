@@ -2,19 +2,15 @@
   "name": "ULHPC-exim4",
   "version": "0.3.2",
   "author": "ULHPC Team",
-  "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage exim4",
-  "description": "Configure and manage exim4",
   "license": "GPL-3.0",
   "source": "https://github.com/ULHPC/puppet-exim4",
-  "docs_project": "ulhpc-puppet-exim4",
   "project_page": "https://github.com/ULHPC/puppet-exim4",
   "issues_url": "https://github.com/ULHPC/puppet-exim4/issues",
-  "forge_url": "https://forge.puppetlabs.com/ULHPC/exim4",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">=4.2.2 <7.0.0"
+      "version_requirement": ">=4.2.2 <10.0.0"
     },
     {
       "name": "puppetlabs-mailalias_core",
@@ -25,9 +21,39 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
+        "11",
+        "12",
+        "13"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
         "7"
       ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 8.0.0 < 9.0.0"
     }
   ],
   "tags": [
@@ -35,13 +61,5 @@
     "exim4",
     "mail",
     "mta"
-  ],
-  "classes": [
-    "exim4",
-    "exim4::common",
-    "exim4::debian",
-    "exim4::params",
-    "exim4::redhat"
-  ],
-  "definitions": []
+  ]
 }

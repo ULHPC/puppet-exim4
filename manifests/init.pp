@@ -64,7 +64,7 @@
 #
 # [Remember: No empty lines between comments and class definition]
 #
-class exim4(
+class exim4 (
   $ensure           = $exim4::params::ensure,
   $configtype       = $exim4::params::configtype,
   $localdelivery    = $exim4::params::localdelivery,
@@ -72,25 +72,24 @@ class exim4(
   $nodnslookup      = $exim4::params::nodnslookup,
   $local_interfaces = $exim4::params::local_interfaces,
   $rewriterules     = $exim4::params::rewriterules,
-) inherits exim4::params
-  {
-    info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
+) inherits exim4::params {
+  info ("Configuring exim4 (with ensure = ${ensure}, configtype = ${configtype})")
 
-    if ! ($ensure in [ 'present', 'absent' ]) {
-      fail("exim4 'ensure' parameter must be set to either 'absent' or 'present'")
-    }
-    if ! ($configtype in [ 'none', 'local', 'smarthost', 'satellite', 'internet' ]) {
-      fail("exim4 'configtype' parameter must be set to 'internet', 'smarthost', 'satellite', 'local', or 'none'")
-    }
-    if ($configtype in [ 'smarthost', 'internet' ]) {
-      warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
-    }
+  if ! ($ensure in ['present', 'absent']) {
+    fail("exim4 'ensure' parameter must be set to either 'absent' or 'present'")
+  }
+  if ! ($configtype in ['none', 'local', 'smarthost', 'satellite', 'internet']) {
+    fail("exim4 'configtype' parameter must be set to 'internet', 'smarthost', 'satellite', 'local', or 'none'")
+  }
+  if ($configtype in ['smarthost', 'internet']) {
+    warning("configtype ${configtype} NOT YET IMPLEMENTED for exim4")
+  }
 
-    case $facts['os']['name'] {
-      'debian', 'ubuntu':                    { include exim4::debian }
-      'redhat', 'fedora', 'centos', 'rocky': { include exim4::redhat }
-      default: {
-        fail("Module ${module_name} is not supported on ${facts['os']['name']}")
-      }
+  case $facts['os']['name'] {
+    'debian', 'ubuntu':                    { include exim4::debian }
+    'redhat', 'fedora', 'centos', 'rocky': { include exim4::redhat }
+    default: {
+      fail("Module ${module_name} is not supported on ${facts['os']['name']}")
     }
   }
+}
